@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="" type="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#111111">
+  <link rel="stylesheet" href="css/vendor.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- <script defer src="js/main.js"></script> -->
+<title>Мой профиль</title>
+</head>
+
+<body class="page__body">
+  <div class="site-container">
+    <header class="header">
+  <div class="container">
+    <div class="menu">
+
+      <nav class="nav header__nav" title="" data-menu>
+        <ul class="list-reset nav__list menu__nav">
+          <li class="nav__item"><a href="index.html" class="nav__link">Главная</a></li>
+          <li class="nav__item"><a href="catalog.html" class="nav__link">Каталог</a></li>
+          <li class="nav__item"><a href="login.html" class="nav__link">Вход</a></li>
+          <li class="nav__item"><a href="reg.html" class="nav__link">Регистрация</a></li>
+          <li class="nav__item"><a href="profile.html" class="nav__link">Мой профиль</a></li>
+          <li class="nav__item"><a href="orders.html" class="nav__link">Мои заказы</a></li>
+          <a href="cart.html" class="btn-reset btn btn--small">Корзина (<span class="cart-number">3</span>)</a>
+          <li class="nav__item"></li>
+        </ul>
+      </nav>
+      <button class="btn-reset burger" aria-label="Открыть меню" aria-expanded="false" data-burger>
+        <span class="burger__line"></span>
+      </button>
+    </div>
+  </div>
+</header>
+    <main class="main">
+      <div class="container">
+        <div class="page__title">
+          <h1 class="title">Мой Профиль</h1>
+        </div>
+        <form action="#" class="form profile-form">
+          <div class="form__line">
+            <label class="form__label" for="fio"> Ф.И.О</label>
+            <input id="fio" type="text" name="Ф.И.О" class="input-reset form__input" placeholder="">
+          </div>
+          <div class="form__line">
+            <label class="form__label" for="email"> Email</label>
+            <input id="email" type="email" name="email" class="input-reset form__input" placeholder="">
+          </div>
+          <div class="form__line">
+            <label class="form__label" for="phone">Телефон</label>
+            <input id="phone" type="tel" name="Телефон" class="input-reset form__input" placeholder="">
+          </div>
+          <div class="form__line">
+            <label class="form__label" for="address">Адрес</label>
+            <input id="address" type="text" name="Адрес" class="input-reset form__input" placeholder="">
+          </div>
+          <button class="btn-reset btn  form__btn">Сохранить</button>
+        </form>
+
+      </div>
+    </main>
+    <footer class="footer">
+  <div class="container"></div>
+</footer>
+
+  </div>
+  <script>
+    const nameInput = document.querySelector('#fio')
+    const emailInput = document.querySelector('#email')
+    const phoneInput = document.querySelector('#phone')
+    const addressInput = document.querySelector('#address')
+    const saveButton = document.querySelector('.form__btn')
+
+    const user = JSON.parse(localStorage.getItem('user'))
+    nameInput.value = `${user.first_name} ${user.last_name}`
+    emailInput.value = user.email
+    phoneInput.value = user.phone
+    addressInput.value = user.address
+
+    saveButton.onclick = function(event){
+      event.preventDefault()
+      const [firstName, lastName] = nameInput.value.split(' ')
+      user.first_name = firstName
+      user.last_name = lastName 
+      user.email = emailInput.value
+      user.address = addressInput.value
+      localStorage.setItem('user', JSON.stringify(user))
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель управления</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+
+<body>
+    <button class="logout-button">Выйти</button>
+    <div class="users-container">
+        <h2>Пользователи</h2>
+        <div class="users"></div>
+    </div>
+    <div class="orders-container">
+        <h2>Заказы</h2>
+        <div class="orders"></div>
+    </div>
+    <div class="products-container">
+        <h2>Товары</h2>
+        <button class="add-new-product-button">Добавить</button>
+        <div class="add-new-product-form is-hidden">
+            <h3>Добавить товар</h3>
+            <input type="text" class="product-name" placeholder="Название">
+            <input type="number" class="product-price" placeholder="Цена">
+            <input type="number" class="product-qty" placeholder="Количество">
+            <div class="controls">
+                <button class="add-new-product-button">Добавить</button>
+                <button class="cancel-button">Отмена</button>
+            </div>
+        </div>
+        <div class="products"></div>
+    </div>
+    <script>
+        const logoutButton = document.querySelector('.logout-button')
+        logoutButton.onclick = async function () {
+            const res = await fetch('/admin_logout')
+            if (res.ok) {
+                location.href = '/admin_login'
+            }
+        }
+
+        const usersContainer = document.querySelector('.users')
+        const ordersContainer = document.querySelector('.orders')
+        const productsContainer = document.querySelector('.products')
+
+        const users = JSON.parse(localStorage.getItem('users'))
+        const orders = JSON.parse(localStorage.getItem('orders'))
+        const products = JSON.parse(localStorage.getItem('products'))
+        localStorage.clear()
+
+        function findProduct(productId) {
+            for (const product of products) {
+                if (product.id === productId) {
+                    return product
+                }
+            }
+        }
+
+        for (const user of users) {
+            usersContainer.innerHTML = `<div data-id="${user.id}">
+                <div>id: ${user.id}</div>
+                <div>Номер телефона: ${user.phone}</div>
+            </div>`
+        }
+        for (const order of orders) {
+            const items = []
+            let sum = 0
+            for (const item of order.items) {
+                const product = findProduct(item.product_id)
+                const total = product.price * item.qty
+                items.push(`<li>
+                    <div>${product.name} (Код товара: ${item.product_id})</div>
+                    <div>Цена: ${product.price} руб.</div>  
+                    <div>Количество: ${item.qty} шт.</div>
+                    <div>Стоимость: ${total} руб.</div>      
+                </li>`)
+                sum += total
+            }
+            ordersContainer.innerHTML = `<div data-id="${order.id}">
+                <div>${order.id}</div>
+                <ul>${items.join('')}</ul>
+                <div>Итого: ${sum} руб.</div>
+            </div>`
+        }
+
+        function renderProducts() {
+            productsContainer.innerHTML = ''
+            for (const product of products) {
+                productsContainer.innerHTML = `<div data-id="${product.id}">
+                    <div>${product.name}</div> 
+                    <div>${product.price}</div>
+                    <div>${product.qty}</div>
+                </div>${productsContainer.innerHTML}`
+            }
+        }
+        renderProducts()
+
+        const addNewProductButton = document.querySelector('.products-container > .add-new-product-button')
+        addNewProductButton.onclick = function () {
+            addNewProductForm.classList.remove('is-hidden')
+            addNewProductButton.classList.add('is-hidden')
+            productsContainer.classList.add('is-hidden')
+        }
+        const addNewProductForm = document.querySelector('.add-new-product-form')
+        addNewProductForm.querySelector('.add-new-product-button').onclick = async function () {
+            const productNameInput = addNewProductForm.querySelector('.product-name')
+            const productPriceInput = addNewProductForm.querySelector('.product-price')
+            const productQtyInput = addNewProductForm.querySelector('.product-qty')
+            const newProduct = {
+                id: products.length + 1,
+                name: productNameInput.value,
+                price: Number(productPriceInput.value),
+                qty: Number(productQtyInput.value),
+                delete: false
+            }
+            const res = await fetch('/add_new_product', {
+                method: 'POST',
+                body: JSON.stringify(newProduct)
+            })
+            // const data = await res.json()
+            products.push(newProduct)
+            productNameInput.value = ''
+            productPriceInput.value = ''
+            productQtyInput.value = ''
+            addNewProductForm.classList.add('is-hidden')
+            addNewProductButton.classList.remove('is-hidden')
+            productsContainer.classList.remove('is-hidden')
+            renderProducts()
+        }
+        addNewProductForm.querySelector('.cancel-button').onclick = function () {
+            addNewProductForm.classList.add('is-hidden')
+            addNewProductButton.classList.remove('is-hidden')
+            productsContainer.classList.remove('is-hidden')
+        }
+    </script>
+</body>
+
+</html>

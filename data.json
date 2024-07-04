@@ -1,0 +1,161 @@
+{
+    "admin": {
+        "password": "3535",
+        "cookie": null
+    },
+    "users": [
+        {
+            "id": 1,
+            "first_name": "Миша",
+            "last_name": "Владимир",
+            "email": "ased@gmail.com",
+            "phone": "76548953215",
+            "password": "4654",
+            "address": "Ленина 20"
+        },
+        {
+            "id": 2,
+            "first_name": "Fygf",
+            "last_name": "gdhgerdhg",
+            "email": "as@gmail.com",
+            "phone": "86535441236",
+            "password": "a25643",
+            "address": "Ленина 20"
+        },
+        {
+            "id": 3,
+            "first_name": "feytf",
+            "last_name": "fsfgrsg",
+            "email": "fsers@gmail.com",
+            "phone": "85642569135",
+            "password": "s4513525",
+            "address": "Ленина 20",
+            "cookie": "ga8bxhjfp9o8u3glhyqc4yix0o81kbptf"
+        },
+        {
+            "id": 4,
+            "first_name": "hdghdg",
+            "last_name": "gdhgerdhg",
+            "email": "alisalevchenko235@gmail.com",
+            "phone": "7578578575",
+            "password": "gdrgr",
+            "address": null,
+            "cookie": null
+        },
+        {
+            "id": 5,
+            "first_name": "Fygf",
+            "last_name": ".khyfyktf",
+            "email": "fseriihik@gmail.com",
+            "phone": "85643562312",
+            "password": "e45654",
+            "address": null,
+            "cookie": null
+        },
+        {
+            "id": 6,
+            "first_name": "Fygf",
+            "last_name": "ftdthfjyh",
+            "email": "fseprs@gmail.com",
+            "phone": "84562563215",
+            "password": "a55646",
+            "address": null,
+            "cookie": null
+        },
+        {
+            "id": 7,
+            "first_name": "Fygf",
+            "last_name": "ffrger",
+            "email": "fsegghfthrs@gmail.com",
+            "phone": "4512",
+            "password": "w75785",
+            "address": null,
+            "cookie": null
+        },
+        {
+            "id": 8,
+            "first_name": "jeygfiweugtit",
+            "last_name": "frytruyutg",
+            "email": "alisalevchenko23535@gmail.com",
+            "phone": "89562543215",
+            "password": "12345",
+            "address": null,
+            "cookie": "9yf0j1bj5hg3tpvz0pismu54st0t8g8q"
+        }
+    ],
+    "orders": [
+        {
+            "id": 1,
+            "user_id": 1,
+            "items": [
+                {
+                    "product_id": 1,
+                    "qty": 1
+                },
+                {
+                    "product_id": 3,
+                    "qty": 2
+                }
+            ],
+            "completed": false
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "name": "Шуроповёрт hn",
+            "price": 1999,
+            "qty": 5,
+            "deleted": false
+        },
+        {
+            "id": 2,
+            "name": "Шуроповёрт Numnd",
+            "price": 5250,
+            "qty": 6,
+            "deleted": false
+        },
+        {
+            "id": 3,
+            "name": "Шуроповёрт Nd",
+            "price": 5500,
+            "qty": 3,
+            "deleted": false
+        },
+        {
+            "id": 4,
+            "name": "eq",
+            "price": 55,
+            "qty": 5,
+            "deleted": false
+        },
+        {
+            "id": 5,
+            "name": "gdtg",
+            "price": 5689,
+            "qty": 6,
+            "deleted": false
+        },
+        {
+            "id": 6,
+            "name": "dgr",
+            "price": 3535,
+            "qty": 5,
+            "delete": false
+        },
+        {
+            "id": 7,
+            "name": "gh",
+            "price": 25,
+            "qty": 5,
+            "delete": false
+        },
+        {
+            "id": 8,
+            "name": "ht",
+            "price": 5566,
+            "qty": 5,
+            "delete": false
+        }
+    ]
+}

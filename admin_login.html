@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Войти в Панель управления</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <input class="password-input" type="text" placeholder="Введите пароль">
+    <button class="login-button">Войти</button>
+    <div class="error-message is-hidden">Пароль неверный, попробуйте ещё раз</div>
+    <script>
+        const passwordInput = document.querySelector('.password-input')
+        const loginButton = document.querySelector('.login-button')
+        const errorMessage = document.querySelector('.error-message')
+        loginButton.onclick = async function(){
+            const password = passwordInput.value
+            const res = await fetch('/authenticate_admin', {
+                method: 'POST',
+                body: password
+            })
+            if (res.ok){
+                const data = await res.json()
+                localStorage.setItem('users', JSON.stringify(data.users))
+                localStorage.setItem('orders', JSON.stringify(data.orders))
+                localStorage.setItem('products', JSON.stringify(data.products))
+                location.href = '/admin'
+            } else{
+                errorMessage.classList.remove('is-hidden')
+                passwordInput.value = ''
+            }
+        }
+    </script>
+</body>
+</html>
